@@ -69,3 +69,42 @@ public class DetallePedido {
     }
     
 }
+
+
+    @Test
+    public void testCreacionDetallePedido() {
+        DetallePedido detalle = new DetallePedido(1, "Pizza", 20.0, 2, "Sin queso", 101);
+
+        assertEquals(1, detalle.getId());
+        assertEquals("Pizza", detalle.getNombre());
+        assertEquals(20.0, detalle.getPrecio());
+        assertEquals(2, detalle.getCantidad());
+        assertEquals("Sin queso", detalle.getComentario());
+        assertEquals(101, detalle.getId_pedido());
+    }
+
+    @Test
+    public void testSettersYGetters() {
+        DetallePedido detalle = new DetallePedido();
+        detalle.setNombre("Hamburguesa");
+        detalle.setPrecio(15.5);
+
+        assertEquals("Hamburguesa", detalle.getNombre());
+        assertEquals(15.5, detalle.getPrecio());
+    }
+
+    @Test
+    public void testPrecioNegativoNoPermitido() {
+        DetallePedido detalle = new DetallePedido();
+        assertThrows(IllegalArgumentException.class, () -> {
+            detalle.setPrecio(-5.0);
+        });
+    }
+}
+
+public void setPrecio(double precio) {
+    if (precio < 0) {
+        throw new IllegalArgumentException("El precio no puede ser negativo");
+    }
+    this.precio = precio;
+}
